@@ -29,9 +29,12 @@ jobs:
           mkdir build
           unzip -q project.zip -d build
 
+      - name: Check secret length
+        run: echo -n "${{ secrets.KEYSTORE_BASE64 }}" | wc -c
+
       - name: Decode keystore
         run: |
-          echo "${{ secrets.KEYSTORE_BASE64 }}" | tr -d '[:space:]' | base64 -d > build/app/release.p12
+          echo -n "${{ secrets.KEYSTORE_BASE64 }}" | tr -d '[:space:]' | base64 -d > build/app/release.p12
           ls -la build/app/release.p12
 
       - name: Build signed APK
