@@ -30,7 +30,7 @@ jobs:
           unzip -q project.zip -d build
 
       - name: Decode keystore
-        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d > build/app/release.p12
+        run: echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 -d --ignore-garbage > build/app/release.p12
 
       - name: Build signed APK
         working-directory: build
